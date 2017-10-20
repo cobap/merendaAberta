@@ -1,24 +1,5 @@
 <template>
-  <div class="hello">
-    <md-toolbar>
-      <md-menu md-align-trigger md-size="4">
-        <md-button md-menu-trigger>
-          <md-icon>menu</md-icon>
-        </md-button>
-        <md-menu-content>
-          <router-link tag="md-menu-item" to="/">Início</router-link>
-          <router-link tag="md-menu-item" to="/graph">Gerador de Gráfico</router-link>
-        </md-menu-content>
-      </md-menu>
-      <router-link tag="md-button" to="/" class="md-title">Merenda Aberta - Portal da Transparência</router-link>
-      <span style="flex: 1"></span>
-      <md-button class="md-icon-button">
-        <md-icon>explore</md-icon>
-      </md-button>
-      <md-button class="md-icon-button">
-        <md-icon>help outline</md-icon>
-      </md-button>
-    </md-toolbar>
+  <div class="hello">    
 
     <md-layout md-gutter class="grafico">
       <md-layout md-flex="30">
@@ -94,12 +75,6 @@ a {
 
 .fade:hover {
   opacity: 0.5;
-}
-
-.md-title {
-  font-weight: 300;
-  font-family: 'Roboto', sans-serif;
-  text-transform: none;
 }
 
 </style>

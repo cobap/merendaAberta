@@ -1,7 +1,28 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
+
+    <md-toolbar>
+      <md-menu md-align-trigger md-size="4">
+        <md-button md-menu-trigger>
+          <md-icon>menu</md-icon>
+        </md-button>
+        <md-menu-content>
+          <router-link tag="md-menu-item" to="/">Início</router-link>
+          <router-link tag="md-menu-item" to="/graph">Gerador de Gráfico</router-link>
+        </md-menu-content>
+      </md-menu>
+      <router-link tag="md-button" to="/" class="md-title">Merenda Aberta - Portal da Transparência</router-link>
+      <span style="flex: 1"></span>
+      <md-button class="md-icon-button">
+        <md-icon>explore</md-icon>
+      </md-button>
+      <md-button class="md-icon-button">
+        <md-icon>help outline</md-icon>
+      </md-button>
+    </md-toolbar>
+
     <router-view/>
+    
   </div>
 </template>
 
@@ -19,5 +40,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   /* margin-top: 60px; */
+}
+
+.md-theme-default.md-toolbar {
+  margin-bottom: 30px; 
 }
 </style>
