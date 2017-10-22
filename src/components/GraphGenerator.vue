@@ -30,7 +30,13 @@
 
     <md-button class="md-raised md-primary" @click="generateGraph">Gerar gráfico</md-button>
 
-    <div id="chart"></div>
+    <div class="chart-custom">
+      <chartjs-line :labels="labels" :data="dataset" :bind="true"></chartjs-line>
+    </div>
+    <div class="chart-custom">
+      <chartjs-bar :labels="labels" :data="dataset" :bind="true"></chartjs-bar>
+    </div>    
+
   </div>
 </template>
 
@@ -41,7 +47,9 @@ export default {
   data: () => ({
     first_variable: '',
     second_variable: '',
-    graph_type: ''
+    graph_type: '',
+    dataset: [],
+    labels: []
   }),
   computed: {
     isDisabled() {
@@ -54,16 +62,8 @@ export default {
       this.second_variable = '';
       this.graph_type = '';
 
-      var data = [30, 86, 168, 281, 303, 365];
-
-      var d3 = require("d3");
-
-      d3.select("#chart")
-      .selectAll("div")
-        .data(data)
-      .enter().append("div")
-        .style("width", function(d) { return d + "px"; })
-        .text(function(d) { return d; });
+      this.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+      this.dataset = [65, 59, 80, 81, 56, 55, 40]
     }
   } 
 }
@@ -87,13 +87,12 @@ h1, h2, p {
   margin: 2% 5% 2% 5%;
 }
 
-#chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
+.chart-custom {
+  width: 60%;
+  height: 60%;
+  display: block;
+  margin: auto;
+  padding: 50px 0 50px 0;
 }
 
 </style>

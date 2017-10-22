@@ -6,6 +6,9 @@ import router from './router'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 Vue.use(VueMaterial)
+import 'chart.js'
+import 'hchs-vue-charts'
+Vue.use(window.VueCharts)
 
 Vue.config.productionTip = false
 
