@@ -3,8 +3,6 @@
 
     <h2>Gerador de Gráfico</h2>
 
-    <p>Alguma explicação sobre o que é esta função dentro do site para informar e guiar os usuários.</p>
-
     <div class="field-group">
       <md-input-container class="select">
           <label for="first_variable">Variável 1</label>
@@ -31,10 +29,10 @@
     <md-button class="md-raised md-primary" @click="generateGraph">Gerar gráfico</md-button>
 
     <div class="chart-custom">
-      <chartjs-line :labels="labels" :data="dataset" :bind="true"></chartjs-line>
+      <chartjs-line :datalabel="'Valor'" :labels="labels" :data="dataset" :bind="true"></chartjs-line>
     </div>
     <div class="chart-custom">
-      <chartjs-bar :labels="labels" :data="dataset" :bind="true"></chartjs-bar>
+      <chartjs-bar :datalabel="'Valor'" :labels="labels" :data="dataset" :bind="true"></chartjs-bar>
     </div>    
 
   </div>
@@ -62,7 +60,7 @@ export default {
       this.second_variable = '';
       this.graph_type = '';
 
-      this.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+      this.labels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho']
       this.dataset = [65, 59, 80, 81, 56, 55, 40]
     }
   } 

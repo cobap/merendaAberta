@@ -45,4 +45,8 @@ export default {
 .md-theme-default.md-toolbar {
   margin-bottom: 30px; 
 }
+
+.md-title {
+  text-transform: none;
+}
 </style>
