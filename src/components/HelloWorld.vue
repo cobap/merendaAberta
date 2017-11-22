@@ -1,44 +1,6 @@
 <template>
-  <!-- <div class="hello">    
-
-    <md-layout md-gutter class="grafico">
-      <md-layout md-flex="30">
-        <span><md-whiteframe md-elevation="24" class='fade'><img src="../assets/histograma.png"></md-whiteframe></span>
-      </md-layout>
-      <md-layout md-flex="5"><span></span></md-layout>
-      <md-layout md-flex="30">
-        <span><md-whiteframe md-elevation="24" class='fade'><img src="../assets/boxplot.png"></md-whiteframe></span>
-      </md-layout>
-      <md-layout md-flex="5"><span></span></md-layout>
-      <md-layout md-flex="30">
-        <span><md-whiteframe md-elevation="24" class='fade'><img src="../assets/correlacao.png"></md-whiteframe></span>
-      </md-layout>
-    </md-layout>
-    <md-layout md-gutter class="grafico">
-      <md-layout md-flex="30">
-        <span><md-whiteframe md-elevation="24" class='fade'><img src="../assets/kmeans.png"></md-whiteframe></span>
-      </md-layout>
-      <md-layout md-flex="5"><span></span></md-layout>
-      <md-layout md-flex="30">
-        <span><md-whiteframe md-elevation="24" class='fade'><img src="../assets/regressaolinear.jpg"></md-whiteframe></span>
-      </md-layout>
-      <md-layout md-flex="5"><span></span></md-layout>
-      <md-layout md-flex="30">
-        <span><md-whiteframe md-elevation="24" class='fade'><img src="../assets/regressaologistica.jpg"></md-whiteframe></span>
-      </md-layout>
-    </md-layout> -->
-
-  <div class="hello">
-    <md-toolbar>
-          <h2 class="md-title">Merenda Aberta - Portal da Transparência</h2>
-          <span style="flex: 1"></span>
-          <md-button class="md-icon-button">
-            <md-icon>explore</md-icon>
-          </md-button>
-          <md-button class="md-icon-button">
-            <md-icon>help outline</md-icon>
-          </md-button>
-        </md-toolbar>
+  <div class="hello"> 
+    
           <md-layout md-gutter class="grafico">
                 <md-layout md-flex="30">
                   <span><md-whiteframe md-elevation="24" class='fade'><grafico-linha></grafico-linha></md-whiteframe></span>
