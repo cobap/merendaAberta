@@ -1,19 +1,42 @@
 <script>
+import axios from 'axios'
 import { Line } from 'vue-chartjs'
-  export default {
-    name: 'grafico-linha',
-    extends: Line,
-      mounted () {
-        this.renderChart({
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [
-            {
-              label: 'Data One',
-              backgroundColor: '#f87979',
-              data: [40, 39, 10, 40, 39, 80, 40]
-            }
-          ]
-        }, {responsive: true, maintainAspectRatio: false})
-      }
-  }
+import { Bar } from 'vue-chartjs'
+export default {
+name: 'grafico',
+extends: Line,
+mounted () {
+axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
+const subPref = response.data
+
+// Após o .map a variável siglaSubPref
+// é um array com todas as siglas que estão
+// dentro do retorno da API
+const siglaSubPref = subPref.map(el => {
+return el.siglaSubPref
+})
+
+const idhm = subPref.map(el => {
+return el.idhm
+})
+
+this.renderChart({
+labels: siglaSubPref,
+datasets: [
+{
+label: 'IDH médio',
+backgroundColor: '#f87979',
+data: idhm
+}
+]
+},{
+responsive: true,
+maintainAspectRatio: false
+})
+})
+.catch(e => {
+this.errors.push(e)
+})
+}
+}
 </script>
