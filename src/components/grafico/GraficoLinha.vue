@@ -6,7 +6,7 @@ export default {
 name: 'grafico',
 extends: Line,
 mounted () {
-axios.get(`https://merendaabertaapi.herokuapp.com//api/v1/subprefeitura`).then(response => {
+axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
 const subPref = response.data
 
 // Após o .map a variável siglaSubPref
@@ -16,13 +16,9 @@ const siglaSubPref = subPref.map(el => {
 return el.siglaSubPref
 })
 
-console.log(siglaSubPref)
-
 const idhm = subPref.map(el => {
-return parseInt(el.idhm)
+return el.idhm
 })
-
-console.log(idhm)
 
 this.renderChart({
 labels: siglaSubPref,
