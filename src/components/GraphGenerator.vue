@@ -3,7 +3,9 @@
 
     <h2>Gerador de Gráfico</h2>
 
-    <div class="field-group">
+    <p>Para personalizar o gráfico gerado, clique nas abas das variáveis (localizadas acima do gráfico) para remover ou adicionar.</p>
+
+    <!--<div class="field-group">
       <md-input-container class="select">
           <label for="first_variable">Variável 1</label>
           <md-select name="first_variable" id="first_variable" v-model="first_variable">
@@ -24,16 +26,22 @@
             <md-option v-for="graph_type in graph_types" v-bind:value="graph_type.value" :key="graph_type.value">{{ graph_type.name }}</md-option>
           </md-select>
       </md-input-container>
-    </div>
+    </div> -->
 
     <md-button class="md-raised md-primary" @click="generateGraph">Gerar gráfico</md-button>
 
-    <div class="chart-custom">
-      <chartjs-line :datalabel="'Valor'" :labels="labels" :data="dataset" :bind="true"></chartjs-line>
+    <div class="chart-size">
+      <canvas id="myChart"></canvas>
     </div>
-    <div class="chart-custom">
-      <chartjs-bar :datalabel="'Valor'" :labels="labels" :data="dataset" :bind="true"></chartjs-bar>
-    </div> 
+
+    <div v-if="show == true">
+      <h4 class="subprefeituras">Legenda:
+        <p v-for="subprefeitura in subprefeituras" :key="subprefeitura.sigla">
+          {{ subprefeitura.sigla }}: {{ subprefeitura.nome }}
+        </p>
+      </h4>
+      <p class="legenda">*O valor do IDH foi multiplicado por 100 para melhor visualização.</p>
+    </div>
 
   </div>
 </template>
@@ -45,26 +53,14 @@ import axios from 'axios';
 export default {
   name: 'GraphGenerator',
   data: () => ({
-    first_variable: '',
+    /*first_variable: '',
     second_variable: '',
-    graph_type: '',
-    dataset: [],
+    graph_type: '',*/
     labels: [],
-    data: [],
     errors: [],
-    variables: [
-      { name: "Zona", value: "zona" }, 
-      { name: "Subprefeitura", value: "subprefeitura" },
-      { name: "Escolas", value: "escola" }
-    ],
-    graph_types: [
-      { name: "Gráfico em barras", value: "bar" },
-      { name: "Gráfico de linhas", value: "line" }
-    ],
-    data1: [],
-    data2: [],
-    label1: [],
-    label2: []
+    idhm: [],
+    show: false,
+    subprefeituras: []
   }),
   computed: {
     isDisabled() {
@@ -73,17 +69,55 @@ export default {
   },
   methods: {
     generateGraph() {
-      this.labels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho']
-      this.dataset = [65, 59, 80, 81, 56, 55, 40]
+      this.subprefeituras = [];
+      this.labels = [];
+      this.idhm = [];
 
-      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/${this.first_variable}/`)
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`)
         .then(response => {
-          this.data = response.data
-          console.log(this.data)
+          response.data.map(el => {
+            this.subprefeituras.push({ sigla: el.siglaSubPref, nome: el.nomeSubPref });
+            this.labels.push(el.siglaSubPref);
+            this.idhm.push(el.idhm*100);
+          });
+
+          var ctx = document.getElementById("myChart");
+          var mixedChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              datasets: [{
+                    label: 'IDH Municipal*',
+                    data: this.idhm,
+                    type: 'line',
+                    fill: false,
+                    borderColor: "#90EE90",
+                    backgroundColor: "#90EE90"
+                  }, {
+                    label: 'Dataset 2',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    type: 'line',
+                    fill: false,
+                    borderColor: "#00b0b3",
+                    backgroundColor: "#00b0b3"
+                  }],
+              labels: this.labels
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+          });
+
+          this.show = true;
         })
         .catch(e => {
-          this.errors.push(e)
-        })
+          this.errors.push(e);
+        });
     }
   } 
 }
@@ -97,6 +131,17 @@ h1, h2, p {
   font-family: 'Roboto', sans-serif;
 }
 
+.subprefeituras {
+  text-align: left;
+  padding: 10px 5% 0 15%;
+  column-count: 4;
+}
+
+.legenda {
+  text-align: left;
+  padding: 0 5% 100px 15%;
+}
+
 .field-group {
   width: 100%;
   display: flex;
@@ -107,10 +152,9 @@ h1, h2, p {
   margin: 2% 5% 2% 5%;
 }
 
-.chart-custom {
+.chart-size {
   width: 60%;
   height: 60%;
-  display: block;
   margin: auto;
   padding: 50px 0 50px 0;
 }
