@@ -83,7 +83,7 @@ export default {
 
           var ctx = document.getElementById("myChart");
           var mixedChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
               datasets: [{
                     label: 'IDH Municipal*',
