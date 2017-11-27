@@ -83,7 +83,7 @@ export default {
 
           var ctx = document.getElementById("myChart");
           var mixedChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
               datasets: [{
                     label: 'IDH Municipal*',
@@ -92,13 +92,33 @@ export default {
                     fill: false,
                     borderColor: "#90EE90",
                     backgroundColor: "#90EE90"
-                  }, {
+              }, /*{
                     label: 'Dataset 2',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     type: 'line',
                     fill: false,
                     borderColor: "#00b0b3",
                     backgroundColor: "#00b0b3"
+                  }, */{
+                    label: 'Gestão Direta',
+                    data: [40, 0, 30, 100, 50],
+                    borderColor: "#F0E68C",
+                    backgroundColor: "#F0E68C"
+                  }, {
+                    label: 'Gestão Mista',
+                    data: [23, 56, 4, 0, 74],
+                    borderColor: "#DDA0DD",
+                    backgroundColor: "#DDA0DD"
+                  }, {
+                    label: 'Gestão Terceirizada',
+                    data: [20, 37, 19, 92, 10],
+                    borderColor: "#FFA07A",
+                    backgroundColor: "#FFA07A"
+                  }, {
+                    label: 'Total de gestões',
+                    data: [23, 53, 68, 93, 2],
+                    borderColor: "#87CEEB",
+                    backgroundColor: "#87CEEB"
                   }],
               labels: this.labels
             },
