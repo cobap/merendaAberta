@@ -2,14 +2,40 @@
   <div class="hello"> 
     
           <md-layout md-gutter class="grafico">
+                <!-- 1°GRAFICO -->
                 <md-layout md-flex="30">
-                  <span><md-whiteframe md-elevation="24" class='fade'><grafico-linha></grafico-linha></md-whiteframe></span>
+                  <span>
+                    <md-whiteframe md-elevation="24" class='fade'>
+                      <grafico-doughnut-custom :data="totalTipoGestao">
+                      </grafico-doughnut-custom>
+                    </md-whiteframe>
+                  </span>
                 </md-layout>
                 <md-layout md-flex="5"><span></span></md-layout>
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="dataBarCustom">
+                      <grafico-doughnut-custom :data="escolasSubprefeitura">
+                      </grafico-doughnut-custom>
+                    </md-whiteframe>
+                  </span>
+                </md-layout>
+                <md-layout md-flex="5"><span></span></md-layout>
+                <md-layout md-flex="30">
+                  <span>
+                    <md-whiteframe md-elevation="24" class='fade'>
+                      <grafico-barra-custom :data="regiaoPorTipoGestao">
+                      </grafico-barra-custom>
+                    </md-whiteframe>
+                  </span>
+                </md-layout>
+          </md-layout>
+          <!-- 3°GRAFICO -->
+          <md-layout md-gutter class="grafico">
+                <md-layout md-flex="30">
+                  <span>
+                    <md-whiteframe md-elevation="24" class='fade'>
+                      <grafico-barra-custom :data="regiaoPorMista">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -18,30 +44,21 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-linha-custom :data="dataLineCustom">
-                      </grafico-linha-custom>
+                      <grafico-barra-custom :data="regiaoPorTerceirizada">
+                      </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
                 </md-layout>
-          </md-layout>
-              <md-layout md-gutter class="grafico">
+                <md-layout md-flex="5"><span></span></md-layout>
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-polar-custom :data="dataPolarCustom">
-                      </grafico-polar-custom>
+                      <grafico-barra-custom :data="regiaoPorDireta">
+                      </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
                 </md-layout>
-                <md-layout md-flex="5"><span></span></md-layout>
-                <md-layout md-flex="30">
-                  <span><md-whiteframe md-elevation="24" class='fade'><grafico-doughnut></grafico-doughnut></md-whiteframe></span>
-                </md-layout>
-                <md-layout md-flex="5"><span></span></md-layout>
-                <md-layout md-flex="30">
-                  <span><md-whiteframe md-elevation="24" class='fade'><grafico-radar></grafico-radar></md-whiteframe></span>
-                </md-layout>
-              </md-layout>
+           </md-layout>
   </div>
 </template>
 
@@ -52,14 +69,14 @@
   import GraficoBarra from './grafico/GraficoBarra.vue'
   import GraficoLinhaCustom from './grafico/GraficoLinhaCustom.vue'
   import GraficoBarraCustom from './grafico/GraficoBarraCustom.vue'
+  import GraficoDoughnutCustom from './grafico/GraficoDoughnutCustom.vue'
   import GraficoPolarCustom from './grafico/GraficoPolarCustom.vue'
   import GraficoPolar from './grafico/GraficoPolar.vue'
   import GraficoDoughnut from './grafico/GraficoDoughnut.vue'
   import GraficoRadar from './grafico/GraficoRadar.vue'
   var randomScalingFactor = function() {
           return Math.round(Math.random() * 100);
-      };
-
+  };
   var chartColors = window.chartColors;
   var color = Chart.helpers.color;
   export default {
@@ -69,6 +86,7 @@
       GraficoBarra,
       GraficoLinhaCustom,
       GraficoBarraCustom,
+      GraficoDoughnutCustom,
       GraficoPolarCustom,
       GraficoPolar,
       GraficoDoughnut,
@@ -158,7 +176,7 @@ a {
    }
 
 .fade:hover {
-  opacity: 0.5;
+  /*opacity: 0.5;*/
 }
 
 </style>
