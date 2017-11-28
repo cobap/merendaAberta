@@ -8,7 +8,7 @@
         </md-button>
         <md-menu-content>
           <router-link tag="md-menu-item" to="/">Início</router-link>
-          <router-link tag="md-menu-item" to="/graph">Gerador de Gráfico</router-link>
+          <router-link tag="md-menu-item" to="/graph">Monte seu Gráfico</router-link>
         </md-menu-content>
       </md-menu>
       <router-link tag="md-button" to="/" class="md-title">Merenda Aberta - Portal da Transparência</router-link>

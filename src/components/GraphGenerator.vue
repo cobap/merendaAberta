@@ -1,7 +1,7 @@
 <template>
   <div class="graphgenerator">
 
-    <h2>Gerador de Gráfico</h2>
+    <h2>Monte seu Gráfico</h2>
 
     <p>Para personalizar o gráfico gerado, clique nas abas das variáveis (localizadas acima do gráfico) para remover ou adicionar.</p>
 
@@ -56,9 +56,7 @@ export default {
     /*first_variable: '',
     second_variable: '',
     graph_type: '',*/
-    labels: [],
     errors: [],
-    idhm: [],
     show: false,
     subprefeituras: []
   }),
@@ -70,15 +68,23 @@ export default {
   methods: {
     generateGraph() {
       this.subprefeituras = [];
-      this.labels = [];
-      this.idhm = [];
+      var labels = [];
+      var idhm = [];
+      var direta = [];
+      var mista = [];
+      var terceirizada = [];
+      var totalGestao = [];
 
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`)
         .then(response => {
           response.data.map(el => {
             this.subprefeituras.push({ sigla: el.siglaSubPref, nome: el.nomeSubPref });
-            this.labels.push(el.siglaSubPref);
-            this.idhm.push(el.idhm*100);
+            labels.push(el.siglaSubPref);
+            idhm.push(el.idhm*100);
+            direta.push(el.direta);
+            mista.push(el.mista);
+            terceirizada.push(el.terceirizada);
+            totalGestao.push(el.totalGestao);
           });
 
           var ctx = document.getElementById("myChart");
@@ -87,40 +93,33 @@ export default {
             data: {
               datasets: [{
                     label: 'IDH Municipal*',
-                    data: this.idhm,
+                    data: idhm,
                     type: 'line',
                     fill: false,
                     borderColor: "#90EE90",
                     backgroundColor: "#90EE90"
-              }, /*{
-                    label: 'Dataset 2',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    type: 'line',
-                    fill: false,
-                    borderColor: "#00b0b3",
-                    backgroundColor: "#00b0b3"
-                  }, */{
+              }, {
                     label: 'Gestão Direta',
-                    data: [40, 0, 30, 100, 50],
+                    data: direta,
                     borderColor: "#F0E68C",
                     backgroundColor: "#F0E68C"
                   }, {
                     label: 'Gestão Mista',
-                    data: [23, 56, 4, 0, 74],
+                    data: mista,
                     borderColor: "#DDA0DD",
                     backgroundColor: "#DDA0DD"
                   }, {
                     label: 'Gestão Terceirizada',
-                    data: [20, 37, 19, 92, 10],
+                    data: terceirizada,
                     borderColor: "#FFA07A",
                     backgroundColor: "#FFA07A"
                   }, {
                     label: 'Total de gestões',
-                    data: [23, 53, 68, 93, 2],
+                    data: totalGestao,
                     borderColor: "#87CEEB",
                     backgroundColor: "#87CEEB"
                   }],
-              labels: this.labels
+              labels: labels
             },
             options: {
                 scales: {
