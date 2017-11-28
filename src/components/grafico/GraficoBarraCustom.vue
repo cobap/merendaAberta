@@ -3,7 +3,7 @@ import { Bar } from 'vue-chartjs'
   export default {
     name: 'grafico-barra-custom',
     extends: Bar,
-    prips: ['data'],
+    props: ['data'],
       mounted () {
         this.renderChart(this.data, {responsive: true, maintainAspectRatio: false})
       }
