@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { Bar } from 'vue-chartjs'
 export default {
-name: 'grafico',
+name: 'grafico-2',
 extends: Bar,
 mounted () {
   axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {

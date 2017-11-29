@@ -1,13 +1,11 @@
 <template>
   <div class="hello"> 
-    
           <md-layout md-gutter class="grafico">
                 <!-- 1°GRAFICO -->
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-doughnut-custom :data="dataPolarCustom">
-                      </grafico-doughnut-custom>
+                      <grafico1></grafico1>
                     </md-whiteframe>
                   </span>
                 </md-layout>
@@ -15,9 +13,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-doughnut-custom :data="dataPolarCustom">
-                      </grafico-doughnut-custom>
-                      
+                      <grafico2></grafico2>                      
                     </md-whiteframe>
                   </span>
                 </md-layout>
@@ -25,7 +21,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="dataLineCustom">
+                      <grafico-barra-custom :data="dataBarCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -36,7 +32,15 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="dataLineCustom">
+                      <grafico-barra></grafico-barra>
+                    </md-whiteframe>
+                  </span>
+                </md-layout>
+                <md-layout md-flex="5"><span></span></md-layout>
+                <md-layout md-flex="30">
+                  <span>
+                    <md-whiteframe md-elevation="24" class='fade'>
+                      <grafico-barra-custom :data="dataBarCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -45,16 +49,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="dataLineCustom">
-                      </grafico-barra-custom>
-                    </md-whiteframe>
-                  </span>
-                </md-layout>
-                <md-layout md-flex="5"><span></span></md-layout>
-                <md-layout md-flex="30">
-                  <span>
-                    <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="dataLineCustom">
+                      <grafico-barra-custom :data="dataBarCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -67,6 +62,8 @@
 
 <script> 
   import GraficoLinha from './grafico/GraficoLinha.vue'
+  import Grafico1 from './grafico/Grafico1.vue'
+  import Grafico2 from './grafico/Grafico2.vue'
   import GraficoBarra from './grafico/GraficoBarra.vue'
   import GraficoLinhaCustom from './grafico/GraficoLinhaCustom.vue'
   import GraficoBarraCustom from './grafico/GraficoBarraCustom.vue'
@@ -87,6 +84,8 @@
     name: 'HelloWorld',
     components: {
       GraficoLinha,
+      Grafico1,
+      Grafico2,
       GraficoBarra,
       GraficoLinhaCustom,
       GraficoBarraCustom,
@@ -98,27 +97,22 @@
     },
     data: {
       subprefeituras: [],
-      idhm: []
+      idhm: [],
+      siglas: []
     },
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        dataLineCustom: {
-          labels: this.subprefeituras,
-          datasets: [
-          {
-          label: 'IDH médio',
-          backgroundColor: '#f87979',
-          data: this.idhm
-        }]
-        },
         dataBarCustom: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [{
-            label: 'GitHub Commits',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-          }]
+          // labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: this.siglas,
+          datasets: [
+            {
+              label: 'Data One',
+              backgroundColor: '#f87979',
+              data: [40, 39, 10, 40, 39, 80, 40]
+            }
+          ]
         },
         dataPolarCustom: {
           datasets: [{
@@ -151,8 +145,9 @@
     mounted(){
 
       this.subprefeituras = [];
+      this.siglas = []
       var labels = [];
-      var idhm = [];
+      this.idhm = [];
       var direta = [];
       var mista = [];
       var terceirizada = [];
@@ -162,13 +157,17 @@
         .then(response => {
           response.data.map(el => {
             this.subprefeituras.push({ sigla: el.siglaSubPref, nome: el.nomeSubPref });
+            this.siglas.push(el.siglaSubPref)
             labels.push(el.siglaSubPref);
-            idhm.push(el.idhm*100);
+            this.idhm.push(el.idhm*100);
             direta.push(el.direta);
             mista.push(el.mista);
             terceirizada.push(el.terceirizada);
             totalGestao.push(el.totalGestao);
           }); 
+
+          console.log(this.siglas)
+
       })
       
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
