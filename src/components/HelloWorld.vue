@@ -97,7 +97,7 @@
       GraficoRadar,
     },
     data: {
-      siglaSubPref: [],
+      subprefeituras: [],
       idhm: []
     },
     data () {
@@ -150,17 +150,27 @@
     },
     mounted(){
 
-      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
-        this.subPref = response.data
-        this.siglaSubPref = this.subPref.map(el => {
-          this.siglaSubPref.push(el.siglaSubPref)
-          // return el.siglaSubPref
-        })
+      this.subprefeituras = [];
+      var labels = [];
+      var idhm = [];
+      var direta = [];
+      var mista = [];
+      var terceirizada = [];
+      var totalGestao = [];
 
-        this.idhm = this.subPref.map(el => {
-          // this.idhm.push(el.idhm)
-          // return el.idhm
-        })      
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`)
+        .then(response => {
+          response.data.map(el => {
+            this.subprefeituras.push({ sigla: el.siglaSubPref, nome: el.nomeSubPref });
+            labels.push(el.siglaSubPref);
+            idhm.push(el.idhm*100);
+            direta.push(el.direta);
+            mista.push(el.mista);
+            terceirizada.push(el.terceirizada);
+            totalGestao.push(el.totalGestao);
+          });
+
+        // this.idhm = this.subPref.map(el => {      })      
       })
       
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
