@@ -17,6 +17,7 @@
                     <md-whiteframe md-elevation="24" class='fade'>
                       <grafico-doughnut-custom :data="dataPolarCustom">
                       </grafico-doughnut-custom>
+                      
                     </md-whiteframe>
                   </span>
                 </md-layout>
