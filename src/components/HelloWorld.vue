@@ -74,6 +74,8 @@
   import GraficoPolar from './grafico/GraficoPolar.vue'
   import GraficoDoughnut from './grafico/GraficoDoughnut.vue'
   import GraficoRadar from './grafico/GraficoRadar.vue'
+  import axios from 'axios'
+  
   var randomScalingFactor = function() {
           return Math.round(Math.random() * 100);
   };
@@ -95,15 +97,55 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        dataLineCustom: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [{
-            label: 'GitHub Commits',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-          }]
-        },
-        dataBarCustom: {
+        
+      mounted () {
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
+        const subPref = response.data
+        const siglaSubPref = subPref.map(el => {
+          return el.siglaSubPref
+        })
+
+        const idhm = subPref.map(el => {
+          return el.idhm
+        })      
+      })
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
+        const zona = response.data
+        const siglaZona = zona.map(el => {
+          return el.siglaZona
+        })
+
+        const nomeZona = zona.map(el => {
+          return el.nomeZona
+        })      
+      })
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/escola/`).then(response => {
+        const escola = response.data
+        const tipoGestao = escola.map(el => {
+          return el.tipoGestao
+        })
+        
+        const tipoUnidade = escola.map(el => {
+          return el.tipoUnidade
+        })
+        
+        const nomeEscola = escola.map(el => {
+          return el.nomeEscola
+        })   
+      
+      })
+      },
+      totalTipoGestao: {
+        labels: siglaSubPref,
+        datasets: [
+        {
+          label: 'IDH médio',
+          backgroundColor: '#f87979',
+          data: idhm
+        }
+        ]
+      },
+        escolasSubprefeitura: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           datasets: [{
             label: 'GitHub Commits',
@@ -140,7 +182,8 @@
 
       }
     }
-  }
+  }  
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
