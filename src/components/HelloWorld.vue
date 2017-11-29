@@ -97,18 +97,29 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-      methods:  {
-        geraGraficos(){
-                axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
-        const subPref = response.data
-        const siglaSubPref = subPref.map(el => {
-          return el.siglaSubPref
-        })
+        
+      mounted () {
+        
+        this.subprefeituras = [];
+        var labels = [];
+        var idhm = [];
+        var direta = [];
+        var mista = [];
+        var terceirizada = [];
+        var totalGestao = [];
 
-        const idhm = subPref.map(el => {
-          return el.idhm
-        })      
-      })
+        axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`)
+        .then(response => {
+          response.data.map(el => {
+            this.subprefeituras.push({ sigla: el.siglaSubPref, nome: el.nomeSubPref });
+            labels.push(el.siglaSubPref);
+            idhm.push(el.idhm*100);
+            direta.push(el.direta);
+            mista.push(el.mista);
+            terceirizada.push(el.terceirizada);
+            totalGestao.push(el.totalGestao);
+          });  
+        })
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
         const zona = response.data
         const siglaZona = zona.map(el => {
@@ -130,7 +141,7 @@
         })
         
         const nomeEscola = escola.map(el => {
-          return el.nomeEscola
+          return el.tipoUnidade
         })   
       
       })
@@ -179,7 +190,7 @@
               "Blue"
           ]
         }
-        }
+
       }
     }
   }  
