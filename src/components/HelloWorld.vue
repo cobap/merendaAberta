@@ -97,9 +97,9 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        
-      mounted () {
-      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
+      methods:  {
+        geraGraficos(){
+                axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
         const subPref = response.data
         const siglaSubPref = subPref.map(el => {
           return el.siglaSubPref
@@ -179,7 +179,7 @@
               "Blue"
           ]
         }
-
+        }
       }
     }
   }  
