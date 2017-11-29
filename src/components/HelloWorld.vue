@@ -1,6 +1,7 @@
 <template>
   <div class="hello"> 
-    
+      <h2>Clique no botao</h2>
+        <md-button class="md-raised md-primary" @click="generateGraph">Gerar gráfico</md-button>
           <md-layout md-gutter class="grafico">
                 <!-- 1°GRAFICO -->
                 <md-layout md-flex="30">
@@ -81,6 +82,7 @@
   };
   var chartColors = window.chartColors;
   var color = Chart.helpers.color;
+  
   export default {
     name: 'HelloWorld',
     components: {
@@ -97,9 +99,10 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        
-      mounted () {
-        
+       }
+    },
+    methods: {
+      generateGraph() {
         this.subprefeituras = [];
         var labels = [];
         var idhm = [];
@@ -120,6 +123,7 @@
             totalGestao.push(el.totalGestao);
           });  
         })
+        
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
         const zona = response.data
         const siglaZona = zona.map(el => {
@@ -163,37 +167,9 @@
             backgroundColor: '#f87979',
             data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
           }]
-        },
-        dataPolarCustom: {
-          datasets: [{
-              data: [
-                  randomScalingFactor(),
-                  randomScalingFactor(),
-                  randomScalingFactor(),
-                  randomScalingFactor(),
-                  randomScalingFactor(),
-              ],
-              backgroundColor: [
-                  color('#C2185B').alpha(0.5).rgbString(),
-                  color('#757575').alpha(0.5).rgbString(),
-                  color('#03A9F4').alpha(0.5).rgbString(),
-                  color('#212121').alpha(0.5).rgbString(),
-                  color('#F8BBD0').alpha(0.5).rgbString(),
-              ],
-              label: 'My dataset' // for legend
-          }],
-          labels: [
-              "Red",
-              "Orange",
-              "Yellow",
-              "Green",
-              "Blue"
-          ]
         }
-
-      }
-    }
-  }  
+  }
+}
 
 </script>
 
