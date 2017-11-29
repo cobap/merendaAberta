@@ -104,7 +104,7 @@
       return {
         msg: 'Welcome to Your Vue.js App',
         dataLineCustom: {
-          labels: this.siglaSubPref,
+          labels: this.subprefeituras,
           datasets: [
           {
           label: 'IDH médio',
@@ -168,9 +168,7 @@
             mista.push(el.mista);
             terceirizada.push(el.terceirizada);
             totalGestao.push(el.totalGestao);
-          });
-
-        // this.idhm = this.subPref.map(el => {      })      
+          }); 
       })
       
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
