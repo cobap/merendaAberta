@@ -6,7 +6,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-doughnut-custom :data="totalTipoGestao">
+                      <grafico-doughnut-custom :data="dataPolarCustom">
                       </grafico-doughnut-custom>
                     </md-whiteframe>
                   </span>
@@ -15,7 +15,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-doughnut-custom :data="escolasSubprefeitura">
+                      <grafico-doughnut-custom :data="dataPolarCustom">
                       </grafico-doughnut-custom>
                     </md-whiteframe>
                   </span>
@@ -24,7 +24,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="regiaoPorTipoGestao">
+                      <grafico-barra-custom :data="dataLineCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -35,7 +35,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="regiaoPorMista">
+                      <grafico-barra-custom :data="dataLineCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -44,7 +44,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="regiaoPorTerceirizada">
+                      <grafico-barra-custom :data="dataLineCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
@@ -53,7 +53,7 @@
                 <md-layout md-flex="30">
                   <span>
                     <md-whiteframe md-elevation="24" class='fade'>
-                      <grafico-barra-custom :data="regiaoPorDireta">
+                      <grafico-barra-custom :data="dataLineCustom">
                       </grafico-barra-custom>
                     </md-whiteframe>
                   </span>
