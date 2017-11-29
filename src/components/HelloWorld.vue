@@ -96,16 +96,20 @@
       GraficoDoughnut,
       GraficoRadar,
     },
+    data: {
+      siglaSubPref: [],
+      idhm: []
+    },
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
         dataLineCustom: {
-          labels: siglaSubPref,
+          labels: this.siglaSubPref,
           datasets: [
           {
           label: 'IDH médio',
           backgroundColor: '#f87979',
-          data: idhm
+          data: this.idhm
         }]
         },
         dataBarCustom: {
@@ -149,11 +153,13 @@
       axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
         this.subPref = response.data
         this.siglaSubPref = this.subPref.map(el => {
-          return el.siglaSubPref
+          this.siglaSubPref.push(el.siglaSubPref)
+          // return el.siglaSubPref
         })
 
         this.idhm = this.subPref.map(el => {
-          return el.idhm
+          // this.idhm.push(el.idhm)
+          // return el.idhm
         })      
       })
       
