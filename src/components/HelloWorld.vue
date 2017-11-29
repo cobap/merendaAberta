@@ -75,11 +75,14 @@
   import GraficoPolar from './grafico/GraficoPolar.vue'
   import GraficoDoughnut from './grafico/GraficoDoughnut.vue'
   import GraficoRadar from './grafico/GraficoRadar.vue'
+  import axios from 'axios'
+  
   var randomScalingFactor = function() {
           return Math.round(Math.random() * 100);
   };
   var chartColors = window.chartColors;
   var color = Chart.helpers.color;
+  
   export default {
     name: 'HelloWorld',
     components: {
@@ -97,12 +100,13 @@
       return {
         msg: 'Welcome to Your Vue.js App',
         dataLineCustom: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [{
-            label: 'GitHub Commits',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-          }]
+          labels: siglaSubPref,
+          datasets: [
+          {
+          label: 'IDH médio',
+          backgroundColor: '#f87979',
+          data: idhm
+        }]
         },
         dataBarCustom: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -138,10 +142,49 @@
               "Blue"
           ]
         }
+      } 
+    },
+    mounted(){
 
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/subprefeitura/`).then(response => {
+        this.subPref = response.data
+        this.siglaSubPref = this.subPref.map(el => {
+          return el.siglaSubPref
+        })
+
+        this.idhm = this.subPref.map(el => {
+          return el.idhm
+        })      
+      })
+      
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/zona/`).then(response => {
+        this.zona = response.data
+        this.siglaZona = this.zona.map(el => {
+          return el.siglaZona
+        })
+
+        this.nomeZona = this.zona.map(el => {
+          return el.nomeZona
+        })      
+      })
+      axios.get(`https://merendaabertaapi.herokuapp.com/api/v1/escola/`).then(response => {
+        this.escola = response.data
+        this.tipoGestao = this.escola.map(el => {
+          return el.tipoGestao
+        })
+        
+        this.tipoUnidade = this.escola.map(el => {
+          return el.tipoUnidade
+        })
+        
+        this.nomeEscola = this.escola.map(el => {
+          return el.tipoUnidade
+        })   
+      
+      })
       }
-    }
-  }
+      
+    }  
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
